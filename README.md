@@ -1,4 +1,4 @@
 # ES6-React-App
-An application using React, Webpack
+An application integrated with Rails and React
 
-https://www.youtube.com/watch?v=MhkGQAoc7bc
+
