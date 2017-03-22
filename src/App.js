@@ -2,6 +2,7 @@ import React from 'react'
 import Button from './Button'
 import Wrapper from './IncrementButton'
 import Items from './Items'
+import HigherOrder from './higherOrder'
 
 class App extends React.Component {
   constructor() {
@@ -40,6 +41,8 @@ class App extends React.Component {
         <Wrapper />
 
         <Items />
+
+        <HigherOrder />
       </div>
     )
   }

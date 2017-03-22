@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Items extends React.Component {
+export default class Items extends React.Component {
   constructor(props) {
     super(props);
     this.state = {items: []}
@@ -42,5 +42,3 @@ class Items extends React.Component {
 }
 
 const Person = (props) => <h4>{props.swPerson.name}</h4>
-
-export default Items

@@ -18,6 +18,10 @@ class IncrementButton extends React.Component {
     console.log("did mount. Happends after render")
     this.inc = setInterval(this.update, 1000)
   }
+  componentWillUnmount() {
+    console.log("It will be unmounted")
+    clearInterval(this.inc)
+  }
   render() {
     console.log('render')
     return (
@@ -41,7 +45,6 @@ class Wrapper extends React.Component {
   unmount() {
     console.log('Unmount')
     ReactDOM.unmountComponentAtNode(document.getElementById('a'))
-    clearInterval(this.inc)
   }
   render() {
     return (
