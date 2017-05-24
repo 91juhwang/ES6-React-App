@@ -9,7 +9,15 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.css$/, use: ['style-loader' ,'css-loader'] } // CSS Loader rule
+      { 
+        test: /\.css$/,
+        use: ['style-loader' ,'css-loader'] 
+      }, // CSS Loader Rule
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: ["babel-loader"]
+      } // JS Loader rule
     ]
   },
   devServer: {

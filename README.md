@@ -148,7 +148,7 @@ There are 2 ways to installing React.
 
 1. Create-React-App
 
-2. Manually installing starting from Webpack server
+2. Manually installing starting from Webpack server (one I'm using)
 
 For adding React to existing app: [Guide](https://facebook.github.io/react/docs/installation.html)
 
@@ -168,11 +168,29 @@ For adding React to existing app: [Guide](https://facebook.github.io/react/docs/
     ```
 * Add the ReactDOM in index.html
 
-* Add the Loader to 
-
-  * Define the `rule` in `webpack.config.js`
+* Add the Loader to render JavaScript
 
   * Need the Webpack to test for javascript files to load the `babel-loader`. More informatino on official Babel guide
 
   * `npm install --save-dev babel-loader babel-core`
+  
+  * Configure `webpack.config.js` by adding a new rule.
+    ```jsx
+     module: {
+        rules: [
+          { 
+            test: /\.css$/,
+            use: ['style-loader' ,'css-loader'] 
+          }, // CSS Loader Rule
+          {
+            test: /\.js$/,
+            exclude: /node_modules/, // Exclude node_modules for faster load
+            use: ["babel-loader"]
+          } // JS Loader rule
+        ]
+      },
+    ```
+* `npm run dev`, and you will see the created ReactDOM in app.bundle.js
+
+####
   
