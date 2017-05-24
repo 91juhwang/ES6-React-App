@@ -2,10 +2,13 @@ const path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/app.js',
+  entry: {
+    app: './src/app.js',
+    contact: './src/contact.js'
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'app.bundle.js'
+    filename: '[name].bundle.js'
   },
   module: {
     rules: [
@@ -27,12 +30,25 @@ module.exports = {
     open: true,
     port: 8080
   },
-  plugins: [new HtmlWebpackPlugin({
+  plugins: [
+    new HtmlWebpackPlugin({
       title: 'My Project!!',
       minify: {
         collapseWhitespace: true
       },
+      hash: true,
+      excludeChunks: ['contact'],
       template: './src/index.html', // Load a custom template (ejs by default see the FAQ for details)
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Contact Page',
+      minify: {
+        collapseWhitespace: true
+      },
+      hash: true,
+      filename: 'contact.html',
+      chunks: ['<contact></contact>'],
+      template: './src/contact.html', // Load a custom template (ejs by default see the FAQ for details)
     })
   ]
 }

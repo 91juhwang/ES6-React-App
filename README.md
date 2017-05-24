@@ -12,12 +12,8 @@ Add the `scripts` inside the package.json for below commands.
   * `npm run prod` for production environment (uses Webpack2 to uglify)
 
 ## Development Notes
-  * [JavaScript(ES6)](https://github.com/91juhwang/TIL/tree/master/JavaScript/ES6)
-  * [React](https://github.com/91juhwang/TIL/tree/master/JavaScript/React)
 
-#### Webpack2
-
-#### HTML-Webpack-Plugin
+### Webpack HTML-Webpack-Plugin
 
   [The official guide link](https://github.com/jantimon/html-webpack-plugin)
 
@@ -63,7 +59,7 @@ Add the `scripts` inside the package.json for below commands.
   ```
   * `<%= htmlWebpackPlugin.options.title %>` in index.ejs will use the `webpack.config.js`'s project title.
 
-##### CSS Loader
+### CSS Loader
 
   * Run `npm install css-loader --save-dev`
 
@@ -114,7 +110,7 @@ Add the `scripts` inside the package.json for below commands.
 
   * You can use `ExtractTextPlugin()` to extract all styleshets and put into 1 single file.
 
-#### Webpack Dev Server
+### Webpack Dev Server
 
   * `npm install webpack-dev-server`
 
@@ -124,11 +120,13 @@ Add the `scripts` inside the package.json for below commands.
 
   * It is on the watch mode, and it does not require us to refresh the page after changing JavaScript
 
-##### Advance Webpack Server Configuration
+### Advance Webpack Server Configuration
 
 [The official config link](https://webpack.github.io/docs/webpack-dev-server.html)
 
 The difference between `webpack -d` and `webpack-dev-server` is that webpack development mode is renders and write files in the disk, the server is written in the <strong>Memory.</strong> 
+
+If you run `webpack-dev-server` IT DOES NOT produce the bundle.js file in the disk, whicih means no physical copy of the file. If you want to generate the file, build through `webpack`.
 
 To Create the configuration file, modify `webpack.config.js` by adding the `devServer: {}`
 
@@ -142,7 +140,7 @@ To Create the configuration file, modify `webpack.config.js` by adding the `devS
     port: 8080
   },
   ```
-#### Install React in Webpack
+### Install React in Webpack
 
 There are 2 ways to installing React. 
 
@@ -192,5 +190,72 @@ For adding React to existing app: [Guide](https://facebook.github.io/react/docs/
     ```
 * `npm run dev`, and you will see the created ReactDOM in app.bundle.js
 
-####
+### RimRaf & Multiple Templates
+
+Clear all before we continue building it especially when we go into the production mode.
+
+* Add another script. 
+  ```jsx
+  "scripts": {
+    "dev": "webpack-dev-server",
+    "prod": "npm run clean && webpack -p",
+    "clean": "rimraf ./dist/*"
+  },
+  ```
+* `npm run clean` -> cleans out all files in the dist folder
+
+What if you want to generate multiple templates, and not keep it in the dist folder?
+
+You can configure it inthe webpack.config.js by adding more HTMLWebpckPlugin
+
+```jsx
+ plugins: [
+    new HtmlWebpackPlugin({
+      title: 'My Project!!',
+      minify: {
+        collapseWhitespace: true
+      },
+      hash: true,
+      template: './src/index.html', // Load a custom template (ejs by default see the FAQ for details)
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Contact Page',
+      minify: {
+        collapseWhitespace: true
+      },
+      hash: true,
+      filename: contact.html,
+      template: './src/contact.html', // Load a custom template (ejs by default see the FAQ for details)
+    })
+```
+* `localhost:port/contact.html` is now accessible.
+
+If you want to have multiple bundles, you will need to define multiple entry points. You can group them as however you wanted.
+
+This is usefuly when you need to use separate css, javascript bundler and have multiple templates to work on.
+
+* Create contact.js inside the src folder.
+```jsx
+  entry: {
+    app: './src/app.js', // app.bundle.js
+    contact: './src/contact.js' // app.contact.js
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].bundle.js' // specify the name for the bundler
+  },
+```
+
+* Only include corresponding JavaScript Bundler for each template.
+
+  * Add the `excludeChunks` and `chunks` option.
+
+### Pug Templates with Webpack
+
+
+
+### Notes + References
+
+* [JavaScript(ES6)](https://github.com/91juhwang/TIL/tree/master/JavaScript/ES6)
+* [React](https://github.com/91juhwang/TIL/tree/master/JavaScript/React)
   
