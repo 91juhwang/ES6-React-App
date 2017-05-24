@@ -5,12 +5,12 @@ Instead of using create-react-app, I chose to build it from the ground using Web
 
 ## Accessbile Pages (Usage)
 
-Clone the app, run `npm run prod`
+Clone and run `npm run prod`.
 
 URLs include: 
 
-* `/` -> root page including the Facebook's tic-tac-toe guide
-* `/contact.html` -> To-Do application
+* `/`                 -> root page including the Facebook's tic-tac-toe guide
+* `/contact.html`     -> To-Do application
 
 ## Webpack HTML-Webpack-Plugin
 
@@ -432,6 +432,6 @@ JavaScript classes we need to explicitly call `super()` when defining a construc
 
 ## Notes + References
 
-* [JavaScript(ES6)](https://github.com/91juhwang/TIL/tree/master/JavaScript/ES6)
-* [React](https://github.com/91juhwang/TIL/tree/master/JavaScript/React)
-* [Link](https://www.youtube.com/watch?v=cKTDYSK0ArI)
+* [JavaScript(ES6) TIL repo](https://github.com/91juhwang/TIL/tree/master/JavaScript/ES6)
+* [React TIL repo](https://github.com/91juhwang/TIL/tree/master/JavaScript/React)
+* [Webpack Tutorial Link](https://www.youtube.com/watch?v=cKTDYSK0ArI)
