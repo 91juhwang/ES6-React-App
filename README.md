@@ -1,10 +1,20 @@
 # React & Webpack Tutorial (Dev Notes)
+This repository follows various tutorials including the Facebook's official Tutorial (Tic-Tac-Toe).
 
-[Link](https://www.youtube.com/watch?v=cKTDYSK0ArI)
+Instead of using create-react-app, I chose to build it from the ground using Webpack2 and ES6.
+
+## Accessbile Pages (Usage)
+
+Clone the app, run `npm run prod`
+
+URLs include: 
+
+* `/` -> root page including the Facebook's tic-tac-toe guide
+* `/contact.html` -> To-Do application
 
 ## Webpack HTML-Webpack-Plugin
 
-[The official guide link](https://github.com/jantimon/html-webpack-plugin)
+[The official Plugin Guide](https://github.com/jantimon/html-webpack-plugin)
 
 Run `npm install html-webpack-plugin --save-dev` 
   
@@ -337,13 +347,91 @@ module: {
   ]
 },
 ```
+## React Fundamentals
 
-## React
+More notes on TIL Repository. Links are listed below.
 
+<strong>`.jsx` expression must have only one parent element.</strong>
+
+Very Basic React Component:
+```jsx
+const css = require('./app.css')
+
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+const App = () => {
+  return (
+  <div>
+    <h1 className="title">Hello React </h1>
+  </div>
+  )  
+}
+
+ReactDOM.render(
+  <App />, 
+  document.getElementById('root')
+)
+```
+
+## React Export and Import Components
+
+Export module vs export component.
+
+module: 
+```jsx
+... codes
+...
+
+export default App
+```
+exporting component
+```jsx
+export const App () => {
+  return (
+    <div>
+      <h1>hello</h1>
+    </div>
+  )
+}
+```
+## Props and PropTypes
+Components can be customized through params called `props`. It's like an argument for functions, and we can defined the `props` by passing the argument inside `App` component, which `Greeeting` component takes in the argumnet and renders it.
+```jsx
+const Greeting = (props) => {
+  const {name, age} = props
+  return(
+    <div id="greeting">
+      <p>Welcome to React Tutorial {name}</p>
+      <p>You are {age} years old!</p>
+    </div>
+  )
+}
+The above `const {name, age} = props;` statement is caleld <strong>DESTRUCTION</strong>, which destructures the props for us to easily use the passed data.
+
+<strong>Prop Types: </strong> We can also define the data Type for the props, which validates the passed data type before passing it to the components.
+
+const App = () => {
+  return (
+  <div>
+    <Headline />
+    <Greeting name="james" age="30" />
+  </div>
+  )  
+}
+```
+
+## Building a Tic-Tac-Toe
+
+React components can have state by setting `this.state` in the `constructor`, which should be considered priate to the component.
+
+JavaScript classes we need to explicitly call `super()` when defining a constructor of a subclass.
+
+<strong>When you want to aggregate data from multiple children or to have two child components communicate with each other, move the state upwards so that it lives in the parent component. The parent can then pass the state back down to the children via props, so that the child components are always in sync with each other and with the parent.</strong>
 
 
 ## Notes + References
 
 * [JavaScript(ES6)](https://github.com/91juhwang/TIL/tree/master/JavaScript/ES6)
 * [React](https://github.com/91juhwang/TIL/tree/master/JavaScript/React)
-  
+* [Link](https://www.youtube.com/watch?v=cKTDYSK0ArI)
