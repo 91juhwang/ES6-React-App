@@ -17,9 +17,12 @@ Add the `scripts` inside the package.json for below commands.
 
 #### Webpack2
 
-##### HTML-Webpack-Plugin
+#### HTML-Webpack-Plugin
 
-  * Run `npm install html-webpack-plugin --save-dev` [The official guide link](https://github.com/jantimon/html-webpack-plugin)
+  [The official guide link](https://github.com/jantimon/html-webpack-plugin)
+
+  * Run `npm install html-webpack-plugin --save-dev` 
+  
 
   * Configure the `webpack.config.js` to include the plugins, output path and filename. The `path` must have an absolute path as shown in below.
   ```javascript
@@ -111,3 +114,65 @@ Add the `scripts` inside the package.json for below commands.
 
   * You can use `ExtractTextPlugin()` to extract all styleshets and put into 1 single file.
 
+#### Webpack Dev Server
+
+  * `npm install webpack-dev-server`
+
+  * Change `"dev"` in npm scripts of package.json to `webpack-dev-server`
+
+  * Server is now up!! default is 8080
+
+  * It is on the watch mode, and it does not require us to refresh the page after changing JavaScript
+
+##### Advance Webpack Server Configuration
+
+[The official config link](https://webpack.github.io/docs/webpack-dev-server.html)
+
+The difference between `webpack -d` and `webpack-dev-server` is that webpack development mode is renders and write files in the disk, the server is written in the <strong>Memory.</strong> 
+
+To Create the configuration file, modify `webpack.config.js` by adding the `devServer: {}`
+
+  * Some basic configuration in `webpack.config.js`
+  ```jsx
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    stats: "errors-only",
+    open: true,
+    port: 8080
+  },
+  ```
+#### Install React in Webpack
+
+There are 2 ways to installing React. 
+
+1. Create-React-App
+
+2. Manually installing starting from Webpack server
+
+For adding React to existing app: [Guide](https://facebook.github.io/react/docs/installation.html)
+
+* `npm install -D react react-dom`
+
+* Enable ES6 and JSX by installing `Babel`
+
+  * Babel compiles ES6 to javascript, so you don't need to worry about browser compatiabilities.
+
+  * `npm install -D babel babel-preset-react babel-preset-es2015`
+
+  * Enable above presets in `.babelrc`
+    ```jsx
+    {
+      "presets": ["es2015", "react"]
+    }
+    ```
+* Add the ReactDOM in index.html
+
+* Add the Loader to 
+
+  * Define the `rule` in `webpack.config.js`
+
+  * Need the Webpack to test for javascript files to load the `babel-loader`. More informatino on official Babel guide
+
+  * `npm install --save-dev babel-loader babel-core`
+  
