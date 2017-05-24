@@ -1,5 +1,7 @@
 const path = require('path')
+var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var isProduction = process.env.NODE_ENV === 'production'
 
 module.exports = {
   entry: {
@@ -20,7 +22,11 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: ["babel-loader"]
-      } // JS Loader rule
+      }, // JS Loader rule
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: "file-loader?name=[name].[ext]&outputPath=images/"
+      }
     ]
   },
   devServer: {
@@ -28,6 +34,7 @@ module.exports = {
     compress: true,   // Set this if you want to enable gzip compression for assets
     stats: "errors-only", // Shows errors
     open: true,
+    hot: isProduction,
     port: 8080
   },
   plugins: [
@@ -49,6 +56,8 @@ module.exports = {
       filename: 'contact.html',
       chunks: ['<contact></contact>'],
       template: './src/contact.html', // Load a custom template (ejs by default see the FAQ for details)
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin()
   ]
 }

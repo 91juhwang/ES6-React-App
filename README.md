@@ -1,19 +1,8 @@
-# React & Webpack Tutorial
+# React & Webpack Tutorial (Dev Notes)
 
 [Link](https://www.youtube.com/watch?v=cKTDYSK0ArI)
 
-## Usage
-  * `npm start`
-
-Add the `scripts` inside the package.json for below commands.
-
-  * `npm run dev` for development environment. 
-
-  * `npm run prod` for production environment (uses Webpack2 to uglify)
-
-## Development Notes
-
-### Webpack HTML-Webpack-Plugin
+## Webpack HTML-Webpack-Plugin
 
 [The official guide link](https://github.com/jantimon/html-webpack-plugin)
 
@@ -58,7 +47,7 @@ To use the custom template, add the plugin as shown in the official guide.
   ```
 `<%= htmlWebpackPlugin.options.title %>` in index.ejs will use the `webpack.config.js`'s project title.
 
-### CSS Loader:
+## CSS Loader:
 
 Run `npm install css-loader --save-dev`
 
@@ -110,6 +99,15 @@ Then add the configuration to webpack.config.js
 
 You can use `ExtractTextPlugin()` to extract all styleshets and put into 1 single file.
 
+
+## Advance Webpack Server Configuration:
+
+[The official config link](https://webpack.github.io/docs/webpack-dev-server.html)
+
+The difference between `webpack -d` and `webpack-dev-server` is that webpack development mode is renders and write files in the disk, the server is written in the <strong>Memory.</strong> 
+
+If you run `webpack-dev-server` IT DOES NOT produce the bundle.js file in the disk, whicih means no physical copy of the file. If you want to generate the file, build through `webpack`.
+
 ### Webpack Dev Server:
 
   1. `npm install webpack-dev-server`
@@ -117,14 +115,6 @@ You can use `ExtractTextPlugin()` to extract all styleshets and put into 1 singl
   2. Change `"dev"` in npm scripts of package.json to `webpack-dev-server`
 
   3. Server is now up!! default is 8080
-
-### Advance Webpack Server Configuration:
-
-[The official config link](https://webpack.github.io/docs/webpack-dev-server.html)
-
-The difference between `webpack -d` and `webpack-dev-server` is that webpack development mode is renders and write files in the disk, the server is written in the <strong>Memory.</strong> 
-
-If you run `webpack-dev-server` IT DOES NOT produce the bundle.js file in the disk, whicih means no physical copy of the file. If you want to generate the file, build through `webpack`.
 
 To Create the configuration file, modify `webpack.config.js` by adding the `devServer: {}`
 
@@ -138,7 +128,7 @@ To Create the configuration file, modify `webpack.config.js` by adding the `devS
       port: 8080
     },
     ```
-### Install React in Webpack:
+## Install React in Webpack:
 
 There are 2 ways to installing React. 
 
@@ -188,7 +178,7 @@ For adding React to existing app: [Guide](https://facebook.github.io/react/docs/
       ```
 5. `npm run dev`, and you will see the created ReactDOM in app.bundle.js
 
-### RimRaf & Multiple Templates:
+## RimRaf & Multiple Templates:
 
 Clear all before we continue building it especially when we go into the production mode.
 
@@ -247,12 +237,112 @@ Once the configuration is made, create the corresponding(contact.js) file inside
 
     * Add the `excludeChunks` and `chunks` option.
 
-### Pug Templates with Webpack:
+## Module Replacement:
+
+This allows us to see the changed CSS without refreshing the page. Similar to Live Reload, but smarter.
+
+Add `hot: true` to the `devServer` in `wepack.config.js`
+
+Then, add the plugins for React hot module or CSS hot module. Guide can be found in the official Webpack website.
+```jsx
+plugins: [
+  new HtmlWebpackPlugin({
+    title: 'My Project!!',
+    minify: {
+      collapseWhitespace: true
+    },
+    hash: true,
+    excludeChunks: ['contact'],
+    template: './src/index.html', // Load a custom template (ejs by default see the FAQ for details)
+  }),
+  new HtmlWebpackPlugin({
+    title: 'Contact Page',
+    minify: {
+      collapseWhitespace: true
+    },
+    hash: true,
+    filename: 'contact.html',
+    chunks: ['<contact></contact>'],
+    template: './src/contact.html', // Load a custom template (ejs by default see the FAQ for details)
+  }),
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.NamedModulesPlugin()
+]
+```
+
+## Production vs Development
+
+Controlling plugins for specific envionment.
+
+We can configure this in package.json by adding
+```jsx
+"scripts": {
+  "prod": "npm run clean && NODE_ENV=production webpack -p"
+}
+```
+We can use `NODE_ENV=production` inside the `webpack.config.js` file, and check if it is set to `true` or `false`.
+
+webpack.config.js
+  ```jsx
+  const path = require('path')
+  var webpack = require('webpack')
+  var HtmlWebpackPlugin = require('html-webpack-plugin');
+  var isProduction = process.env.NODE_ENV === 'production'
+
+  // Control configuration for different modes
+  var cssProduction = whatever you need
+  var cssDevelopment = whatever you desire
+  var cssConfig = isProduction ? cssProduction : cssDevelopment
+
+  // configure true or false values in the webpack.config.js by using the varialble isProduction or !isProduction
+  ```
+
+## File Loader with Webpack2
+
+How should we include images inside css or HTML? With below plugins()
+
+* file-loader
+
+* image-loader
+
+```jsx
+npm install --save-dev file-loader
+npm install --save-dev image-loader
+```
+Add the `rules` for the `.png` files
+
+You can use the `|` to separate and test for different file types.
+
+The `"file-loader?name=[name].[ext]&outputPath=images/"` Lets us to create the outputPath of `images/` in the `dist` folder when we run in the production mode.
+
+Installing and using the `image-loader` will optimize the image sizes, which will make the page loading faster. Below config didn't use this.
+
+Full `webpack.config.js rules`:
+```jsx
+module: {
+  rules: [
+    { 
+      test: /\.css$/,
+      use: ['style-loader' ,'css-loader'] 
+    }, // CSS Loader Rule
+    {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: ["babel-loader"]
+    }, // JS Loader rule
+    {
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      use: "file-loader?name=[name].[ext]&outputPath=images/"
+    }
+  ]
+},
+```
+
+## React
 
 
 
-
-### Notes + References
+## Notes + References
 
 * [JavaScript(ES6)](https://github.com/91juhwang/TIL/tree/master/JavaScript/ES6)
 * [React](https://github.com/91juhwang/TIL/tree/master/JavaScript/React)
