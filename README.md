@@ -7,7 +7,7 @@ Instead of using create-react-app, I chose to build it from the ground using Web
 
 Clone and run `npm run prod`.
 
-URLs include: 
+URLs include:
 
 * `/`                 -> root page including the Facebook's tic-tac-toe guide
 * `/contact.html`     -> To-Do application
@@ -16,8 +16,8 @@ URLs include:
 
 [The official Plugin Guide](https://github.com/jantimon/html-webpack-plugin)
 
-Run `npm install html-webpack-plugin --save-dev` 
-  
+Run `npm install html-webpack-plugin --save-dev`
+
 Configure the `webpack.config.js` to include the plugins, output path and filename. The `path` must have an absolute path as shown in below.
   ```javascript
   const path = require('path')
@@ -32,7 +32,7 @@ Configure the `webpack.config.js` to include the plugins, output path and filena
     plugins: [new HtmlWebpackPlugin()]
   }
   ```
-Then run `npm run dev`, and dynamically generate html file with the `app.bundle.js` script. 
+Then run `npm run dev`, and dynamically generate html file with the `app.bundle.js` script.
 
 To use the custom template, add the plugin as shown in the official guide.
   ```jsx
@@ -94,16 +94,16 @@ Then link the css into the app.js.
 
   <!-- app.js contents here -->
   ```
-This won't load the css into the newly created index.html, because it is included in the javascript `app.bundle.js`. 
+This won't load the css into the newly created index.html, because it is included in the javascript `app.bundle.js`.
 
 Therefore, we need to load the style by adding the `style-loader`.
 
 `npm install style-loader --save-dev`
- 
-Then add the configuration to webpack.config.js 
+
+Then add the configuration to webpack.config.js
   ```jsx
   { test: /\.css$/, use: ['style-loader' ,'css-loader'] } // added style-loader! infront of previous css-loader
-  
+
   // Version 1 uses loaders: 'style-loader!css-loader`, but 2 uses the above syntax
   ```
 
@@ -114,7 +114,7 @@ You can use `ExtractTextPlugin()` to extract all styleshets and put into 1 singl
 
 [The official config link](https://webpack.github.io/docs/webpack-dev-server.html)
 
-The difference between `webpack -d` and `webpack-dev-server` is that webpack development mode is renders and write files in the disk, the server is written in the <strong>Memory.</strong> 
+The difference between `webpack -d` and `webpack-dev-server` is that webpack development mode is renders and write files in the disk, the server is written in the <strong>Memory.</strong>
 
 If you run `webpack-dev-server` IT DOES NOT produce the bundle.js file in the disk, whicih means no physical copy of the file. If you want to generate the file, build through `webpack`.
 
@@ -140,7 +140,7 @@ To Create the configuration file, modify `webpack.config.js` by adding the `devS
     ```
 ## Install React in Webpack:
 
-There are 2 ways to installing React. 
+There are 2 ways to installing React.
 
 1. Create-React-App
 
@@ -169,14 +169,14 @@ For adding React to existing app: [Guide](https://facebook.github.io/react/docs/
     * Need the Webpack to test for javascript files to load the `babel-loader`. More informatino on official Babel guide
 
     * `npm install --save-dev babel-loader babel-core`
-  
+
     * Configure `webpack.config.js` by adding a new rule.
       ```jsx
       module: {
           rules: [
-            { 
+            {
               test: /\.css$/,
-              use: ['style-loader' ,'css-loader'] 
+              use: ['style-loader' ,'css-loader']
             }, // CSS Loader Rule
             {
               test: /\.js$/,
@@ -192,7 +192,7 @@ For adding React to existing app: [Guide](https://facebook.github.io/react/docs/
 
 Clear all before we continue building it especially when we go into the production mode.
 
-1. Add another script to the package.json. 
+1. Add another script to the package.json.
     ```jsx
     "scripts": {
       "dev": "webpack-dev-server",
@@ -331,9 +331,9 @@ Full `webpack.config.js rules`:
 ```jsx
 module: {
   rules: [
-    { 
+    {
       test: /\.css$/,
-      use: ['style-loader' ,'css-loader'] 
+      use: ['style-loader' ,'css-loader']
     }, // CSS Loader Rule
     {
       test: /\.js$/,
@@ -365,11 +365,11 @@ const App = () => {
   <div>
     <h1 className="title">Hello React </h1>
   </div>
-  )  
+  )
 }
 
 ReactDOM.render(
-  <App />, 
+  <App />,
   document.getElementById('root')
 )
 ```
@@ -378,7 +378,7 @@ ReactDOM.render(
 
 Export module vs export component.
 
-module: 
+module:
 ```jsx
 ... codes
 ...
@@ -417,7 +417,7 @@ const App = () => {
     <Headline />
     <Greeting name="james" age="30" />
   </div>
-  )  
+  )
 }
 ```
 
@@ -435,9 +435,9 @@ IMMUTABILITY!!
 
 <strong>Immutability is IMPORTANT!</strong>
 
-There are generally two ways for changing data. 
+There are generally two ways for changing data.
 
-1. Mutate the data by directly changing the values of a variable. 
+1. Mutate the data by directly changing the values of a variable.
 
 2. Replace the data with a new copy of the object that also includes desired changes.
 
@@ -447,7 +447,7 @@ There are generally two ways for changing data.
   * Avoiding data mutations lets us keep a reference to older versions of the data, and switch between them if we need to. (ex. game stage)
 * Tracking Changes
 * Determining When to Re-render in React#
-  * The biggest benefit of immutability in React comes when you build simple pure components. 
+  * The biggest benefit of immutability in React comes when you build simple pure components.
   * Performance, (`shouldComponentUpdate()`)
 
 <strong>Usage</strong>
@@ -484,6 +484,21 @@ function Square(props) {
   );
 }
 ```
+
+## React Keys
+When you render a list of items, React always stores some info about each item in the list.
+
+React asks you to specify a key property on each element in a list, a string to differentiate each component from its siblings.
+
+if the items correspond to objects in a database, the database ID is usually a good choice:
+
+```jsx
+<li key={user.id}>{user.name}: {user.taskCount} tasks left</li>
+```
+
+key is a special property that's reserved by React (along with `ref`, a more advanced feature). When an element is created, React pulls off the key property and stores the key directly on the returned element. Even though it may look like it is part of props, it cannot be referenced with `this.props.key`.
+
+<strong> It's strongly recommended that you assign proper keys whenever you build dynamic lists. </strong>
 
 ## Notes + References
 
