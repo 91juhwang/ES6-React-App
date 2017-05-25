@@ -429,6 +429,61 @@ JavaScript classes we need to explicitly call `super()` when defining a construc
 
 <strong>When you want to aggregate data from multiple children or to have two child components communicate with each other, move the state upwards so that it lives in the parent component. The parent can then pass the state back down to the children via props, so that the child components are always in sync with each other and with the parent.</strong>
 
+IMMUTABILITY!!
+
+## Immutability
+
+<strong>Immutability is IMPORTANT!</strong>
+
+There are generally two ways for changing data. 
+
+1. Mutate the data by directly changing the values of a variable. 
+
+2. Replace the data with a new copy of the object that also includes desired changes.
+
+<strong>REASONS:</strong>
+
+* Easier Undo/Redo and Time Travel
+  * Avoiding data mutations lets us keep a reference to older versions of the data, and switch between them if we need to. (ex. game stage)
+* Tracking Changes
+* Determining When to Re-render in React#
+  * The biggest benefit of immutability in React comes when you build simple pure components. 
+  * Performance, (`shouldComponentUpdate()`)
+
+<strong>Usage</strong>
+```jsx
+// Copy the original array by using .slice()
+arr = [0,1,2,3,4]
+newArry = arr.slice()
+newArry[2] = "a"
+
+console.log(arr) // returns [0,1,2,3,4]
+console.log(newArry) // returns [0,1,"a",3,4]
+```
+
+## Functional Components
+If a component doesn't have constructors and is very simple, just use Functional Component!!
+
+```jsx
+// Instead of this
+class Square extends React.Component {
+  render() {
+    return (
+        <button className="square" onClick={() => this.props.onClick()} >
+        {this.props.value}
+      </button>
+    );
+  }
+}
+// Use this!!
+function Square(props) {
+  return (
+    <button className="square" onClick={props.onClick}>
+      {props.value}
+    </button>
+  );
+}
+```
 
 ## Notes + References
 
