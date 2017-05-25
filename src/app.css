@@ -5,18 +5,14 @@ body {
 }
 
 #root {
-  width: 820px;
+  width: 1000px;
   margin: 0 auto;
   background-color: black;
 }
 
-ol, ul {
-  padding-left: 30px;
-}
-
 #board-row {
-  margin-top: 30px;
-  margin-bottoM: 60px;
+  margin-top: 40px;
+  margin-bottom: 60px;
 }
 
 .board-row:after {
@@ -57,9 +53,25 @@ ol, ul {
 }
 
 .game-info {
-  margin-left: 20px;
+  color: white;
+  margin-right: 80px;
+}
+
+.game-info ol li {
+  font-size: 20px;
+}
+
+.game-info ol li a {
+  font-size: 20px;
+  color: pink;
+}
+
+.game-info ol li a:hover {
+  color: red;
 }
 
 .game-board {
+  width: 500px;
   margin: 0 auto;
+  margin-right: 10px;
 }
