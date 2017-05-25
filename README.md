@@ -12,6 +12,10 @@ URLs include:
 * `/`                 -> root page including the Facebook's tic-tac-toe guide
 * `/contact.html`     -> To-Do application
 
+<strong>React Tutorial</strong>
+
+![alt text](https://drive.google.com/uc?id=0Byxeja4jYwq4Smx2akVsSXJRZXM)
+
 ## Webpack HTML-Webpack-Plugin
 
 [The official Plugin Guide](https://github.com/jantimon/html-webpack-plugin)
