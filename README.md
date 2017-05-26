@@ -9,12 +9,22 @@ Clone and run `npm run prod`.
 
 URLs include:
 
-* `/`                 -> root page including the Facebook's tic-tac-toe guide
-* `/contact.html`     -> To-Do application
+* `/`                 -> root page including the Facebook's tic-tac-toe game
+* `/todo.html`     -> To-Do application
 
-<strong>React Tutorial</strong>
+<strong>Tic-Tac-Toe React Tutorial</strong>: (`/`)
 
 ![alt text](https://drive.google.com/uc?id=0Byxeja4jYwq4Smx2akVsSXJRZXM)
+
+<strong>To Do Lists React Tutorial</strong>: (`/todo.html`)
+
+## Design Process
+
+We must understand and decide how the layouts will look like. It is good to break down each components by each functionalities and each block in the layouts. The examlple app below would have 4 components: header, Input field, List of tasks, and managing lists components.
+
+Always break down into smaller pieces depending on the layout!!
+
+![alt text](https://drive.google.com/uc?id=0Byxeja4jYwq4ejYtTVFvZ2NyYkU)
 
 ## Webpack HTML-Webpack-Plugin
 

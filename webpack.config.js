@@ -6,7 +6,7 @@ var isProduction = process.env.NODE_ENV === 'production'
 module.exports = {
   entry: {
     app: './src/index.js',
-    contact: './src/contact.js'
+    todo: './src/todo.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -14,9 +14,9 @@ module.exports = {
   },
   module: {
     rules: [
-      { 
+      {
         test: /\.css$/,
-        use: ['style-loader' ,'css-loader'] 
+        use: ['style-loader' ,'css-loader']
       }, // CSS Loader Rule
       {
         test: /\.js$/,
@@ -44,18 +44,18 @@ module.exports = {
         collapseWhitespace: true
       },
       hash: true,
-      excludeChunks: ['contact'],
+      excludeChunks: ['todo'],
       template: './src/index.html', // Load a custom template (ejs by default see the FAQ for details)
     }),
     new HtmlWebpackPlugin({
-      title: 'Contact Page',
+      title: 'To Do List',
       minify: {
         collapseWhitespace: true
       },
       hash: true,
-      filename: 'contact.html',
-      chunks: ['<contact></contact>'],
-      template: './src/contact.html', // Load a custom template (ejs by default see the FAQ for details)
+      excludeChunks: ['app'],
+      filename: 'todo.html',
+      template: './src/todo.html', // Load a custom template (ejs by default see the FAQ for details)
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin()
